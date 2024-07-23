@@ -2,19 +2,19 @@
 // Promise, Async await
 
 function practice() {
-  console.log('start!');
+  console.log("start!");
 
   // callback hell
   // 참고: https://bit.ly/3r5iUfe
   delay(() => {
-    console.log('1s');
+    console.log("1s");
     delay(() => {
-      console.log('2s');
+      console.log("2s");
       delay(() => {
-        console.log('3s');
+        console.log("3s");
         delay(() => {
-          console.log('4s');
-          console.log('end!');
+          console.log("4s");
+          console.log("end!");
         });
       });
     });
@@ -25,21 +25,50 @@ function delay(callback, time = 1000) {
   setTimeout(callback, time);
 }
 
-// practice();
+practice();
 
 // --------------------------------------------------------------------------
 
 // Promise
 // 참고: https://mzl.la/3d1He5h
 // 🔶 delayPromise 함수를 작성합니다.
-const delayPromise = () => {};
+const delayPromise = (callback, timeout = 1000) => {
+  //Promise 클래스 -> promise 인스턴스 생성
+  const promise = new Promise((resolve) => {
+    setTimeout(callback, timeout);
+    // setTimeout(() => resolve(), timeout);
+  });
+
+  //promise 인스턴스 반환
+  return promise;
+};
 
 function practice2() {
-  console.log('start!');
+  console.log("start!");
   // 🔶 delayPromise 함수를 사용해 1초마다 로그를 남기도록 작성합니다.
+  delayPromise()
+    .then(() => {
+      console.log("1s");
+      return delayPromise(); // return promise
+    })
+    .then(() => {
+      console.log("2s");
+      return delayPromise(); // return promise
+    })
+    .then(() => {
+      console.log("3s");
+      return delayPromise(); // return promise
+    })
+    .then(() => {
+      console.log("4s");
+      return delayPromise(); // return promise
+    })
+    .then(() => {
+      console.log("end");
+    });
 }
 
-// practice2();
+practice2();
 
 // Async Await
 // 참고: https://mzl.la/49EvJxn
@@ -59,7 +88,7 @@ const promise1 = () =>
   new Promise((resolve) => {
     const timeout = Math.random() * MAX_TIMEOUT;
     setTimeout(resolve, timeout, {
-      value: 'X',
+      value: "X",
       timeout: `${timeout.toFixed(2)}s`,
     });
   });
@@ -68,12 +97,12 @@ const promise2 = () =>
   new Promise((resolve) => {
     const timeout = Math.random() * MAX_TIMEOUT;
     setTimeout(resolve, timeout, {
-      value: 'Y',
+      value: "Y",
       timeout: `${timeout.toFixed(2)}s`,
     });
   });
 
-const promise3 = Promise.reject('❌ 오류 발생!');
+const promise3 = () => Promise.reject("❌ 오류 발생!");
 
 // Promise.all
 // 참고: https://mzl.la/49EvJxn
