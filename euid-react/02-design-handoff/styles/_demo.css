@@ -6,5 +6,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-block-size: 100vh;
+  min-block-size: 100vh; /*block-size, inline-size*/
 }
