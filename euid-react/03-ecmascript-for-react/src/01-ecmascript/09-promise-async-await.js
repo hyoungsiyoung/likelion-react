@@ -73,16 +73,41 @@ practice2();
 // Async Await
 // 참고: https://mzl.la/49EvJxn
 
-function practice3() {
+async function practice3() {
   // 🔶 비동기 함수를 사용해 delayPromise 함수가 1초마다 로그를 남기도록 작성합니다.
+  console.log("start!");
+
+  // + 1s
+  await delayPromise();
+  console.log("1s");
+
+  // + 2s
+  await delayPromise();
+  console.log("2s");
+
+  // + 1s
+  await delayPromise();
+  console.log("1s");
+
+  // + 3s
+  await delayPromise();
+  console.log("3s");
+
+  // + 4s
+  await delayPromise();
+  console.log("4s");
+
+  // + end
+  await delayPromise();
+  console.log("end!");
 }
 
-// practice3();
+practice3();
 
 // --------------------------------------------------------------------------
 // Promise.all, Promise.race
 
-const MAX_TIMEOUT = 1000;
+const MAX_TIMEOUT = 2000;
 
 const promise1 = () =>
   new Promise((resolve) => {
@@ -105,9 +130,25 @@ const promise2 = () =>
 const promise3 = () => Promise.reject("❌ 오류 발생!");
 
 // Promise.all
-// 참고: https://mzl.la/49EvJxn
+// [promise1, promise2, promise3, ..., promiseN].then(() => { ... })
+// 참고: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
 // 🔶 Promise.all 메서드를 사용해 모든 Promise가 실행된 이후 콜백되도록 실습을 진행합니다.
+Promise.all([promise1(), promise2()])
+  .then((results) => {
+    console.log(results); // [result1, result2]
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 // Promise.race
-// 참고: https://mzl.la/49EvJxn
+// [promise1, promise2, promise3, ..., promiseN].then(() => { ... })
+// 참고: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/race
 // 🔶 Promise.race 메서드를 사용해 응답이 가장 빠른 Promise 값만 출력되도록 실습을 진행합니다.
+Promise.race([promise1(), promise2()])
+  .then((winner) => {
+    console.log(winner); // winner
+  })
+  .catch((error) => {
+    console.error(error);
+  });
