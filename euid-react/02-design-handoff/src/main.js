@@ -18,8 +18,11 @@ const listItems = Array.from(list.querySelectorAll("li"));
 // TODO: listItems 집합 순환 드래그 가능하게 처리
 listItems.forEach((item) => {
   item.setAttribute("draggable", true);
+<<<<<<< HEAD
   // item.setAttribute("tabindex", 0);
   // item.style.cursor = 'move';
+=======
+>>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
 
   // TODO: 각 리스트 아이템에 드래그 이벤트 핸들링
   item.addEventListener("dragstart", (e) => {
@@ -57,5 +60,9 @@ list.addEventListener("dragover", (e) => {
     return e.clientY <= item.offsetTop + item.offsetHeight * 0.5; //마우스를 올렸을 때 누구랑 교체할지 찾는거 ??
   });
 
+<<<<<<< HEAD
   if (replaceItem) list.insertBefore(draggedItem, replaceItem); //드래그 중인 아이템과 교체할 아이템을 교체함
+=======
+  list.insertBefore(draggedItem, replaceItem); //드래그 중인 아이템과 교체할 아이템을 교체함
+>>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
 });
