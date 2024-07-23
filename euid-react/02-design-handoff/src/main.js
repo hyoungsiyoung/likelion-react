@@ -18,11 +18,8 @@ const listItems = Array.from(list.querySelectorAll("li"));
 // TODO: listItems 집합 순환 드래그 가능하게 처리
 listItems.forEach((item) => {
   item.setAttribute("draggable", true);
-<<<<<<< HEAD
   // item.setAttribute("tabindex", 0);
   // item.style.cursor = 'move';
-=======
->>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
 
   // TODO: 각 리스트 아이템에 드래그 이벤트 핸들링
   item.addEventListener("dragstart", (e) => {
@@ -52,17 +49,18 @@ list.addEventListener("dragover", (e) => {
   // 드롭 대상 요소의 화면에서의 top 위치 + (높이 * 0.5) 비교해서 교체할 아이템 찾기
 
   //드래깅 중인 요소가 리스트 안에서 움직일 때 화면에서의 높이 값 (이벤트 감지)
-  console.log(e.clientY);
-  const replaceItem = restItems.find((item) => {
+  // console.log(e.clientY);
+
+  const replaceItem = restItems.find((item, index) => {
     // console.log(index, item.offsetTop);
     // console.log(index, item.offsetHeight);
     // console.log(index, item.offsetHeight * 0.5);
     return e.clientY <= item.offsetTop + item.offsetHeight * 0.5; //마우스를 올렸을 때 누구랑 교체할지 찾는거 ??
   });
 
-<<<<<<< HEAD
-  if (replaceItem) list.insertBefore(draggedItem, replaceItem); //드래그 중인 아이템과 교체할 아이템을 교체함
-=======
-  list.insertBefore(draggedItem, replaceItem); //드래그 중인 아이템과 교체할 아이템을 교체함
->>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
+  if (replaceItem) {
+    list.insertBefore(draggedItem, replaceItem); //드래그 중인 아이템과 교체할 아이템을 교체함
+  } else {
+    list.appendChild(draggedItem);
+  }
 });

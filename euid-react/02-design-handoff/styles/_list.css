@@ -6,10 +6,7 @@
   --image-size: 64px;
   --min-width: 220px;
   --max-width: 640px;
-<<<<<<< HEAD
-  --button-size: 20px;
-=======
->>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
+  --button-size: 32px;
 
   list-style-type: none;
   margin-block: 0;
@@ -34,11 +31,7 @@
       opacity: 0.1;
     }
 
-<<<<<<< HEAD
     [data-role="image"] {
-=======
-    img {
->>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
       block-size: var(--image-size);
       inline-size: var(--image-size);
       border-radius: var(--radius-md);
@@ -49,21 +42,17 @@
     [data-role="label"] {
       flex: 1;
     }
-<<<<<<< HEAD
 
     [data-role="handle"] {
       padding: 0;
       background: transparent;
       border: 0;
-      img {
-        inline-size: var(--button-size);
-        block-size: var(--button-size);
 
-        display: grid;
-        place-content: center;
-      }
+      inline-size: var(--button-size);
+      block-size: var(--button-size);
+
+      display: grid;
+      place-content: center;
     }
-=======
->>>>>>> 519cdf79cdd4e02c22211f4e5afac57b575ff858
   }
 }
