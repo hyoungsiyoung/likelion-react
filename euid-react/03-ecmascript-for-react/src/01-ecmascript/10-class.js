@@ -68,9 +68,12 @@ class ApiClient {
   delete() {}
 }
 
-const todosService = new _ApiClient(
+const todosService = new ApiClient(
   "https://jsonplaceholder.typicode.com/todos"
 );
+
+// 비공개 멤버 접근 안됨
+// console.log(todosService.#endpoint);
 
 // --------------------------------------------------------------------------
 
@@ -95,7 +98,8 @@ run.delete = () => todosService.delete(3);
 
 async function run() {
   try {
-    const response = await run.readAll();
+    // const response = await run.readAll();
+    const response = await run.update();
     console.log(response);
   } catch (error) {
     console.error(error);
