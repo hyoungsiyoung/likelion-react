@@ -10,6 +10,9 @@ const listData = {
   ],
 };
 
+// 반응성(Reactivity) 구현
+// 개발자 -> 데이터 수정 -> 반응성(변경 감지) -> 리액트 -> 화면 업데이트 구현
+
 // React 리스트 렌더링
 // Array.prototype.map 메서드 활용
 const children = listData.items.map(({ id, title }) => {
@@ -82,6 +85,8 @@ function render() {
 function unmount() {
   reactDomRoot.unmount();
 }
+
+render();
 
 // 타이머 웹 API
 // setTimeout
