@@ -1,3 +1,7 @@
+// 반응성(Reactivity) 구현
+// 개발자 -> 데이터 수정 -> 반응성(변경 감지) -> 리액트 -> 화면 업데이트 구현
+
+// 일반 JavaScript 객체
 const listData = {
   items: [
     { id: "1", title: "Climatology" },
@@ -6,6 +10,29 @@ const listData = {
     { id: "4", title: "Building design" },
   ],
 };
+
+// 반응성 구현 : Proxy 객체 활용 (like Vue.js)
+const reactivity = (globalThis.reactivity = new Proxy(listData, {
+  // GET (원본 수정 대신, 프록시를 사용해 가로채서 읽기)
+  get(target, prop) {
+    console.log("[GET]");
+    // 객체의 속성 반환
+    return target[prop];
+  },
+
+  // SET (원본 수정 대신, 프록시를 사용해 가로채서 쓰기)
+  set(target, prop, newValue) {
+    // 이전 값
+    const oldValue = target[prop];
+
+    // 새로운 값으로 업데이트 로직 작성
+    target[prop] = newValue;
+
+    console.log("[SET] update", JSON.stringify(newValue));
+
+    return true;
+  },
+}));
 
 const children = listData.items.map(({ id, title }) => {
   const reactElement = React.createElement(
