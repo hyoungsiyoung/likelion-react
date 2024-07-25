@@ -6,22 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/react.svg" />
     <link rel="stylesheet" href="src/styles/main.css" />
-    <script
-      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
-      crossorigin=""
-    ></script>
-    <script
-      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
-      crossorigin=""
-    ></script>
     <script type="module" src="src/main.js"></script>
   </head>
 
   <body>
-    <!-- 리액트 돔: 리액트 앱을 이 컨테이너 요소에 렌더링 -->
-    <div id="root"></div>
+    <div id="actual-dom"></div>
 
     <div id="virtual-dom"></div>
+    <!-- 개발자가 작성한 HTML 코드 -> 브라우저 해석 -> 실제 문서 객체 모델(DOM) 생성-->
     <ul class="architectures" lang="en">
       <li class="item">
         <img src="/architectures/architecture-1.jpg" alt="" />
