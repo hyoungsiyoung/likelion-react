@@ -8,7 +8,11 @@ function ArchitectureList(props) {
   const { lang, children } = props;
 
   // 리액트 엘리먼트(React Element) 반환
-  return null;
+  return React.createElement(
+    "ul",
+    { className: "architectures", lang },
+    children
+  );
 }
 
 export default ArchitectureList;
