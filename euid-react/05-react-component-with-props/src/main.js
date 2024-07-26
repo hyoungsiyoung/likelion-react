@@ -1,65 +1,25 @@
-import { createElement as h } from "https://esm.sh/react";
+import React from "https://esm.sh/react";
 import { createRoot } from "https://esm.sh/react-dom";
 
-const listData = {
-  items: [
-    { id: "1", title: "Climatology" },
-    { id: "2", title: "History of Architecture" },
-    { id: "3", title: "Graphics" },
-    { id: "4", title: "Building design" },
-  ],
-};
+// 데이터 가져오기
+import listData from "./components/data/list.js";
 
-const container = document.getElementById("root");
-const reactDomRoot = createRoot(container);
+// 컴포넌트 불러오기
+import NumberList from "./components/NumberList.js";
+import ArchitectureList from "./components/architectures/ArchitectureList.js";
+import ArchitectureItem from "./components/architectures/ArchitectureItem.js";
 
-function render() {
-  const children = listData.items.map(({ id, title }) => {
-    const reactElement = h(
-      "li",
-      {
-        key: id,
-        className: "item",
-      },
-      h("img", {
-        src: `/architectures/architecture-${id}.jpg`,
-        alt: "",
-      }),
-      h(
-        "span",
-        {
-          className: "content",
-        },
-        title
-      ),
-      h(
-        "button",
-        {
-          type: "button",
-          title: "아이템 이동 (위/아래 화살표 키 활용)",
-        },
-        h("img", {
-          src: "/icons/handle.svg",
-          alt: "아이템 이동 (위/아래 화살표 키 활용)",
-        })
-      )
-    );
+const container = document.getElementById("react-app");
 
-    return reactElement;
+if (container) {
+  const architectureList = React.createElement(ArchitectureList, {
+    lang: "en",
+    children: listData.items.map(({ id, title }) =>
+      React.createElement(ArchitectureItem, { id, title })
+    ),
   });
 
-  const list = h(
-    "ul",
-    { className: "architectures", lang: "en" },
-
-    children
-  );
-
-  reactDomRoot.render(list);
+  createRoot(container).render(architectureList);
+} else {
+  alert('문서에 "#app" 요소가 존재하지 않습니다.');
 }
-
-function unmount() {
-  reactDomRoot.unmount();
-}
-
-render();
