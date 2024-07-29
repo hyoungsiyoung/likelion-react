@@ -1,4 +1,3 @@
-import React from "react";
 // JSX Runtime : Classic
 // React is not defined
 // import React from 'react';

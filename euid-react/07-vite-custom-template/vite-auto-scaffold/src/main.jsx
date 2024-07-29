@@ -1,8 +1,8 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import AvatarListPage from "./pages/AvatarList";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import AvatarListPage from './pages/AvatarList';
 
-const container = document.getElementById("react-app");
+const container = document.getElementById('react-app');
 
 if (container) {
   createRoot(container).render(
