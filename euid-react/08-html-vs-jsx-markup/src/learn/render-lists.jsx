@@ -11,12 +11,12 @@ function RenderLists({ items /* string[], Array<string> */ }) {
     // const {reverse = false} = options;
     // console.log({reverse})
 
-    let listItems = items; //items 받기 / 대기 -> 로딩 실패 순
+    //let listItems = items; //items 받기 / 대기 -> 로딩 실패 순
 
-    if (reverse) {
-      //listItems = items.reverse(); //reverse가 필요할 때 할당하기 (원본 자체를 변경함)
-      listItems = items.toReversed(); //복사해서 새로운 배열을 반환한다.
-    }
+    //if (reverse) {
+    //listItems = items.reverse(); //reverse가 필요할 때 할당하기 (원본 자체를 변경함)
+    //listItems = items.toReversed(); //복사해서 새로운 배열을 반환한다.
+    //}
 
     // 리스트 렌더링 결과 반환
     // - [ ] Array.prototype.forEach?
@@ -28,16 +28,47 @@ function RenderLists({ items /* string[], Array<string> */ }) {
     });
   };
 
-  const reversedList = renderList().toReversed();
+  //const reversedList = renderList().toReversed();
+
+  //문
+  let demoListUsingStatement = [];
+
+  for (let item of items) {
+    demoListUsingStatement.push(<li key={item.toString()}>{item}</li>);
+  }
+
+  //식
+  const demoList = items.map((item, index) => {
+    return <li key={index.toString()}>{item}</li>;
+  });
+
+  const renderDemoList = () =>
+    items.map((item, index) => {
+      return <li key={index.toString()}>{item}</li>;
+    });
 
   return (
     <>
       <dt>리스트 렌더링(list rendering)</dt>
       <dd>
+        {/* 직접 포함 */}
+        <ul>
+          {items.map((item, index) => {
+            return <li key={index.toString()}>{item}</li>;
+          })}
+        </ul>
+        {/* 문에서 처리된 결과 값을 할당받은 지역 변수 참조 */}
+        <ul>{demoListUsingStatement}</ul>
+        {/* 함수 몸체의 지역 변수 참조 */}
+        <ul>{demoList}</ul>
+        {/* 함수 실행 결과 값 활용 */}
+        <ul>{renderDemoList()}</ul>
+      </dd>
+      <dd>
         <p>상태 메시지(status messages) 배열을 리스트 렌더링합니다.</p>
         {/* 함수 실행 -> 결과 값 반환 (식에서 사용 가능) */}
         {/* <ul className="renderList">{renderList()}</ul> */}
-        {/* 인라인 코드 로직 삽입 (식에서 사용, 다만 문 제외) */}
+        {/* 인라인 코드 로직 삽입 (식에서 사용 가능, 다만 문 제외) */}
         <ul>
           {items.map((item) => (
             <li key={item.toString()}>{item}</li>
@@ -47,9 +78,8 @@ function RenderLists({ items /* string[], Array<string> */ }) {
       <dd>
         <p>상태 메시지(status messages) 배열을 역순 정렬하여 렌더링합니다.</p>
         {/* 함수 몸체의 변수 참조 (식에서 사용 가능) */}
-        {/* <ul className="renderList">{reversedList()}</ul> */}
+        {/* <ul className="renderList">{reversedList}</ul> */}
 
-        {/* 가장 인기있는 방법 */}
         {/* 인라인 코드 로직 삽입 (식에서 사용 가능, 다만 문 제외) */}
         {items.toReversed().map((item) => (
           <li key={item.toString()}>{item}</li>
