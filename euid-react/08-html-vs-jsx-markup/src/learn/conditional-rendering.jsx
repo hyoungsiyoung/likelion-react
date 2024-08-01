@@ -1,4 +1,7 @@
-import { isTrueOrFalse, typeOf } from '../utils';
+import { isTrueOrFalse } from '../utils';
+import PropTypes from '../utils/prop-types';
+
+console.log(PropTypes);
 
 // 이미지 경로 불러오기
 import kakaoTalkImagePath from '../assets/kakao-talk.svg?url';
@@ -18,24 +21,26 @@ function ConditionalRendering({ imageType }) {
   let printText = '';
 
   // 조건 "문"
-  if (imageType.toLowerCase().includes('react')) {
-    imagePath = reactImagePath;
-    printText = 'React';
-  }
-
-  if (imageType.toLowerCase().includes('vite')) {
-    imagePath = viteImagePath;
-    printText = 'Vite';
-  }
-
-  if (imageType.toLowerCase().includes('next.js')) {
-    imagePath = nextJsImagePath;
-    printText = 'Next.js';
-  }
-
-  if (imageType.toLowerCase().includes('kakao talk')) {
-    imagePath = kakaoTalkImagePath;
-    printText = 'Kakao Talk';
+  // if 문 => switch 문으로 변경
+  switch (imageType.toLowerCase()) {
+    case 'react':
+      imagePath = reactImagePath;
+      printText = 'React';
+      break;
+    case 'vite':
+      imagePath = viteImagePath;
+      printText = 'Vite';
+      break;
+    case 'next.js':
+      imagePath = nextJsImagePath;
+      printText = 'Next.js';
+      break;
+    case 'kakao talk':
+      imagePath = kakaoTalkImagePath;
+      printText = 'Kakao Talk';
+      break;
+    default:
+      printText = '허용된 이미지 타입이 존재하지 않습니다.';
   }
 
   // 값을 반환하는 함수 실행
@@ -98,32 +103,8 @@ export default ConditionalRendering;
 // 컴포넌트 속성(들) 검사
 ConditionalRendering.propTypes = {
   // imageType 속성 검사
-  imageType(props, propName, componentName) {
-    // 컴포넌트 속성 값
-    const propValue = props[propName];
-
-    // 컴포넌트 속성 값의 타입
-    const propType = typeOf(propValue);
-
-    // 컴포넌트 속성이 허용하는 타입
-    const allowedType = 'string';
-
-    // 정규식을 사용해서 특정 문자 값이 매칭(일치)되는 지 검토
-    const typeMatchString = IMAGE_TYPES.reduce((result, type, index, array) => {
-      const divider = index < array.length - 1 ? '|' : '';
-      return result + type + divider;
-    }, '');
-
-    const typeMatch = new RegExp(`^(${typeMatchString})$`, 'i');
-
-    // 타입 검사 수행
-    if (propType !== allowedType || !typeMatch.test(propValue)) {
-      // 타입이 다르면? 오류 처리
-      throw new Error(
-        `${componentName} 컴포넌트 ${propName} 속성에 설정 가능한 값은 "[${IMAGE_TYPES.toString()}]" 중 하나가 요구되나, 실제 전달된 속성 값은 "${propValue}"입니다.`
-      );
-    }
-
-    // 타입이 동일하고 속성 값이 매칭(일치)되면? 통과
-  },
+  // 배열에 포함된 것 중 하나를 확인하는 검사
+  // ['react', 'vite', 'next.js', 'kakao talk']
+  // imageType: oneOf(['react', 'vite', 'next.js', 'kakao talk']),
+  imageType: PropTypes.oneOf(IMAGE_TYPES),
 };
