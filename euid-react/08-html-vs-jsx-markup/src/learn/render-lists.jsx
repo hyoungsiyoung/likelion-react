@@ -1,50 +1,61 @@
-import { array } from '../utils/prop-types';
+import PropTypes, { array, exact, string } from 'prop-types';
 
-function RenderLists({ items /* string[], Array<string> */ }) {
+console.log(PropTypes);
+
+function RenderLists({
+  reactLibrary,
+  items /* { id: string, message: string }[] */,
+}) {
+  console.log(reactLibrary);
   // 함수 내부에 리스트 렌더링 코드를 작성해보세요.
   // react.d.ts
   // { @@typeof: 'Symbol(react.element)', ... }
   // JSDOC
-  /**@type{() => React.ReactElement} */
-  const renderList = ({ reverse = false } = {}) => {
-    //reverse array 옵션을 전달하지 않으면 기본 값은 빈 객체가 된 상태 / 비어있어서 reverse가 없네? 하면 false가 된다.
-    // const {reverse = false} = options;
-    // console.log({reverse})
+  /**@type{() => Array<React.ReactElement>} */
+  // const renderList = (options = {}) => {
+  // const renderList = ({ reverse = false } = {}) => {
+  //   // const { reverse = false } = options;
+  //   // console.log({ reverse });
 
-    //let listItems = items; //items 받기 / 대기 -> 로딩 실패 순
+  //   let listItems = items; // 대기 → 로딩 실패 순
 
-    //if (reverse) {
-    //listItems = items.reverse(); //reverse가 필요할 때 할당하기 (원본 자체를 변경함)
-    //listItems = items.toReversed(); //복사해서 새로운 배열을 반환한다.
-    //}
+  //   if (reverse) {
+  //     // [1] listItems = items.reverse();
+  //     // listItems = items.reverse(); // 참조된 items을 직접 변경 (순서 바꾸기)
+  //     // listItems = items.slice().reverse();
+  //     // listItems = [...items].reverse();
 
-    // 리스트 렌더링 결과 반환
-    // - [ ] Array.prototype.forEach?
-    // - [x] Array.prototype.map?
-    return items.map((item) /* string */ => {
-      // console.log(item);
-      // JSX(React Element) Markup
-      return <li key={item}>{item}</li>;
-    });
-  };
+  //     // [2] listItems = items.toReversed();
+  //     listItems = items.toReversed(); // ES 2023 (v14) 추가
+  //   }
 
-  //const reversedList = renderList().toReversed();
+  //   // 리스트 렌더링 결과 반환
+  //   // - [ ] Array.prototype.forEach?
+  //   // - [x] Array.prototype.map?
+  //   return listItems.map((item) /* string */ => {
+  //     // console.log(item);
+  //     // JSX(React Element) Markup
+  //     return <li key={item}>{item}</li>;
+  //   });
+  // };
 
-  //문
+  // const reversedList = renderList().toReversed();
+
+  // 문
   let demoListUsingStatement = [];
 
   for (let item of items) {
-    demoListUsingStatement.push(<li key={item.toString()}>{item}</li>);
+    demoListUsingStatement.push(<li key={item.id}>{item.message}</li>);
   }
 
-  //식
-  const demoList = items.map((item, index) => {
-    return <li key={index.toString()}>{item}</li>;
+  // 식
+  const demoList = items.map((item) => {
+    return <li key={item.id}>{item.message}</li>;
   });
 
   const renderDemoList = () =>
-    items.map((item, index) => {
-      return <li key={index.toString()}>{item}</li>;
+    items.map(({ id, message }) => {
+      return <li key={id}>{message}</li>;
     });
 
   return (
@@ -53,8 +64,8 @@ function RenderLists({ items /* string[], Array<string> */ }) {
       <dd>
         {/* 직접 포함 */}
         <ul>
-          {items.map((item, index) => {
-            return <li key={index.toString()}>{item}</li>;
+          {items.map(({ id, message }) => {
+            return <li key={id}>{message}</li>;
           })}
         </ul>
         {/* 문에서 처리된 결과 값을 할당받은 지역 변수 참조 */}
@@ -71,7 +82,7 @@ function RenderLists({ items /* string[], Array<string> */ }) {
         {/* 인라인 코드 로직 삽입 (식에서 사용 가능, 다만 문 제외) */}
         <ul>
           {items.map((item) => (
-            <li key={item.toString()}>{item}</li>
+            <li key={item.id}>{item.message}</li>
           ))}
         </ul>
       </dd>
@@ -81,8 +92,8 @@ function RenderLists({ items /* string[], Array<string> */ }) {
         {/* <ul className="renderList">{reversedList}</ul> */}
 
         {/* 인라인 코드 로직 삽입 (식에서 사용 가능, 다만 문 제외) */}
-        {items.toReversed().map((item) => (
-          <li key={item.toString()}>{item}</li>
+        {items.toReversed().map((item, index) => (
+          <li key={item?.id ?? index}>{item.message}</li>
         ))}
       </dd>
       <dd>
@@ -103,4 +114,12 @@ export default RenderLists;
 RenderLists.propTypes = {
   // items: oneOf(statusMessages)
   items: array, // [권장] arrayOf(string) | arrayOf(number)
+
+  reactLibrary: exact({
+    name: string,
+    author: string,
+    writtenIn: string,
+    type: string,
+    license: string,
+  }), // [권장] shape()
 };

@@ -9,6 +9,13 @@ export const statusMessages = [
   '❌ 로딩 실패.',
 ];
 
+export const statusMessagesWithID = [
+  { id: 'message-xyz', message: '⌛️ 대기' },
+  { id: 'message-air', message: '⏳ 로딩 중...' },
+  { id: 'message-ckd', message: '✅ 로딩 성공!' },
+  { id: 'message-eiu', message: '❌ 로딩 실패.' },
+];
+
 export const reactLibrary = {
   name: 'React',
   author: '조던 워케(Jordan Walke)',
