@@ -1,5 +1,7 @@
+import { statusMessages } from '../data/learn';
 import { randomNumber } from '../utils';
-import PropTypes from '../utils/prop-types';
+import { oneOf, arrayOf } from 'prop-types';
+// import PropTypes from '../utils/prop-types';
 
 function DataBinding({ statusMessages }) {
   // [미션] 랜덤 로직을 작성해서 임의의 상태 메시지가 표시되도록 설정합니다.
@@ -14,7 +16,7 @@ function DataBinding({ statusMessages }) {
   // }
 
   const statusMessage =
-    statusMessages[randomNumber(0, statusMessages.length - 1)];
+    statusMessages[randomNumber(0, statusMessages?.length - 1)];
 
   return (
     <>
@@ -39,5 +41,20 @@ export default DataBinding;
 // Component.propTypes
 
 DataBinding.propTypes = {
-  statusMessages: PropTypes.array,
+  //필수 속성 설정 시, isRequired 추가
+  //statusMessages: array.isRequired,
+
+  //특정 타입만 허용하는 배열 검사
+  //Typed Array
+  //[TS] string[] -> [prop-types] arrayOf(string)
+  //[TS] number[] -> [prop-types] arrayOf(number)
+  //[TS] boolean[] ->[prop-types]  arrayOf(bool)
+  //statusMessages: arrayOf(string).isRequired, //모든 문자열 가능
+
+  // statusMessages: arrayOf(
+  //   oneOf(['⌛️ 대기', '⏳ 로딩 중...', '✅ 로딩 성공!', '❌ 로딩 실패.'])
+  // ).isRequired, //string[] or Array<string> 스트링으로만 구성된 배열 / isRequired<- 필수라는 뜻
+
+  //위랑 같은 결과
+  statusMessage: arrayOf(oneOf(statusMessages)).isRequired,
 };
