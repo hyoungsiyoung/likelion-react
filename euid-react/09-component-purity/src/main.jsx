@@ -2,6 +2,8 @@ import '@/styles/main.css';
 // import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import AvatarListPage from '@/pages/AvatarListPage';
+// import './learn/about-purity.js';
+import './learn/about-side-effects.js';
 
 const container = document.getElementById('react-app');
 
