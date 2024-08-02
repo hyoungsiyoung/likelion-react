@@ -1,73 +1,32 @@
-// --------------------------------------------------------------------------
-// ✅ 이벤트 전파
-// --------------------------------------------------------------------------
-// - [x] 전파 중지 (개별적으로 할 수 있음)
-// - [x] 전파 대안으로 핸들러 전달
-// - [x] 기본 작동 방지
-// --------------------------------------------------------------------------
+import { func } from 'prop-types';
 
-import LayoutBox from './LayoutBox';
+EventHandlerProp.propTypes = {
+  onPrintMessage: func,
+};
 
-// RGB 모드
-// CMYK 모드
+// 하위 컴포넌트
+function EventHandlerProp({ onPrintMessage }) {
+  const handleEnter = () => {
+    // console.log('enter');
+    onPrintMessage?.(' ⭐️');
+  };
 
-// event.preventDefault(); // 이벤트 기본 작동을 차단
+  const handleLeave = () => {
+    // console.log('leave')
+  };
 
-// Event Delegation (위임)
-// Event Propagation (전파)
-// event.stopPropagation(); // 이벤트 전파 중지
-
-function EventPropagation() {
   return (
     <details>
-      <summary>
-        <b>이벤트 전파 &amp; 기본 작동 방지</b>
+      <summary onPointerEnter={handleEnter} onPointerLeave={handleLeave}>
+        <b>이벤트 핸들러 추가하기</b>
       </summary>
-      {/* 상위 컴포넌트 : 정민 */}
-      <LayoutBox
-        style={styles.cyan}
-        onClick={(e) => {
-          console.log('cyan', e.target);
-        }}
-      >
-        <LayoutBox
-          style={styles.magenta}
-          onClick={(e) => {
-            console.log('magenta', e.target);
-          }}
-        >
-          <LayoutBox
-            style={styles.yellow}
-            onClick={(e) => {
-              console.log('yellow', e.target);
-            }}
-          >
-            <LayoutBox
-              style={styles.purple}
-              onClick={(e) => {
-                console.log('purple', e.target);
-              }}
-            ></LayoutBox>
-          </LayoutBox>
-        </LayoutBox>
-      </LayoutBox>
+      <p>
+        이벤트 핸들러 추가를 위해서는 먼저 함수를 정의하고
+        <br />
+        이를 적절한 JSX 요소에 prop으로 전달해야 합니다.
+      </p>
     </details>
   );
 }
 
-const styles = {
-  cyan: {
-    '--color': 'var(--cyan)',
-  },
-  magenta: {
-    '--color': 'var(--magenta)',
-  },
-  yellow: {
-    '--color': 'var(--yellow)',
-  },
-  purple: {
-    '--color': 'var(--purple, #7423f6)',
-  },
-};
-
-export default EventPropagation;
+export default EventHandlerProp;

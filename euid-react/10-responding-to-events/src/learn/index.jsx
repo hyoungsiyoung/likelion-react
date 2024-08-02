@@ -1,54 +1,32 @@
-import Headline from './Headline';
-import JSX_Markup from './html-vs-jsx-markup/jsx-markup';
-import EventHandlerProp from './responding-to-events/event-handler-prop';
-import EventPropagation from './responding-to-events/event-propagation';
-import EventWithSideEffects from './responding-to-events/event-with-side-effects';
-
-// 상위 컴포넌트
-// ⬇ props로 데이터 전달
-// 하위 컴포넌트
-function RespondingToEvents() {
-  // 함수 지역 변수 (데이터)
-  let message = '김사부! "집중~~"';
-
-  // 함수 내부의 지역 함수 (데이터)
-  // eslint-disable-next-line no-unused-vars
-  const printMessage = () => console.log(message);
-
-  const updateMessage = (addMessage) => {
-    message += addMessage;
-    console.log(message);
-  };
-
-  return (
-    <div className="ViewRespondingToEvent">
-      <h1>이벤트에 응답</h1>
-      <p>사용자와 상호작용하도록 이벤트를 구성합니다.</p>
-      <hr />
-      <EventHandlerProp onPrintMessage={updateMessage} />
-      <hr />
-      <EventPropagation />
-      <hr />
-      <EventWithSideEffects />
-    </div>
-  );
-}
-
-function HTMLvsJSX() {
-  return (
-    <div className="ViewHTMLvsJSX" hidden>
-      <Headline />
-      <hr />
-      <JSX_Markup />
-    </div>
-  );
-}
-
+// --------------------------------------------------------------------------
+// ✅ 사용자와의 상호작용
+// --------------------------------------------------------------------------
+// - [x] 이벤트에 응답
+// - [x] 이벤트 핸들러 추가
+//    - [x] 이벤트 핸들러에서 사이드 이펙트 처리 가능
+//    - [x] 이벤트 핸들러에서 컴포넌트 속성(props) 읽기
+//    - [x] 이벤트 핸들러(함수)를 하위 컴포넌트에 속성(prop)으로 전달
+//    - [x] 이벤트 핸들러 prop 이름 설정
 // --------------------------------------------------------------------------
 
-function View() {}
+import View from './View';
+import NavContents from './NavContents';
+import ScrollUpAndDown from './responding-to-events/scroll-up-and-down';
 
-View.HTMLvsJSX = HTMLvsJSX;
-View.RespondingToEvents = RespondingToEvents;
+// eslint-disable-next-line no-unused-vars
+let mountCount = 0;
 
-export default View;
+function Learn() {
+  // console.log('마운트 횟수', ++mountCount);
+
+  return (
+    <div className="Learn">
+      <NavContents />
+      <View.HTMLvsJSX />
+      <View.RespondingToEvents />
+      <ScrollUpAndDown />
+    </div>
+  );
+}
+
+export default Learn;
