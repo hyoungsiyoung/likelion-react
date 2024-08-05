@@ -1,5 +1,11 @@
+import TermAndConditions from '@/components/TermAndCondition';
+
 function Playground() {
-  return <div>Playground</div>;
+  return (
+    <>
+      <TermAndConditions />
+    </>
+  );
 }
 
 export default Playground;
