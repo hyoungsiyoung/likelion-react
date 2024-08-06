@@ -1,40 +1,47 @@
-// --------------------------------------------------------------------------
-// ✅ UsersPage 컴포넌트
-// --------------------------------------------------------------------------
-// - [x] data/users.json 파일에서 사용자 목록 데이터 불러오기
-// - [ ] 사용자 검색 필드 및 목록, 검색 정보를 화면에 렌더링
-// - [ ] 사용자 목록 정보 데이터를 순환해 화면에 리스트 렌더링
-// - [ ] 사용자 정보 검색 시, 검색된 데이터만 사용자 목록 업데이트
-// - [ ] 사용자 정보 검색 시, 검색 정보 업데이트
-// --------------------------------------------------------------------------
+import { useId } from 'react';
+import { string, func } from 'prop-types';
+import './UserSearchBox.css';
 
-import { useState } from 'react';
-import usersData from './data/users.json';
-import UserSearchBox from './components/UserSearchBox';
-import UserListCount from './components/UserListCount';
-import UsersList from './components/UsersList';
+UserSearchBox.propTypes = {
+  searchTerm: string.isRequired,
+  onSearch: func, // optional
+};
 
-function UsersPage() {
-  // 리액트 컴포넌트 상태 관리
-  const [users] = useState(usersData);
-  const [searchTerm, setSearchTerm] = useState('');
+function UserSearchBox({ searchTerm, onSearch }) {
+  const id = useId();
 
-  const handleSearch = (userInput) => {
-    console.log('clicked button');
-    setSearchTerm(userInput);
+  const handleSearch = () => {
+    // Side Effects
+    // DOM 접근, 속성 값 읽기
+    const input = document.getElementById(id);
+    const value = input.value.trim();
+
+    onSearch?.(value);
+    // if (value.length > 0) {
+    // } else {
+    //   alert('검색어를 입력해주세요.');
+    // }
   };
 
-  // 포함 가능한 로직
-  // 상태 쓰기(C)/읽기(R)/수정(U)/삭제(D)
-  // 오직 이 컴포넌트 내부에서만 가능 (리액트에 변경 요청)
-
   return (
-    <div className="UsersPage">
-      <UserSearchBox searchTerm={searchTerm} onSearch={handleSearch} />
-      <UsersList users={users} />
-      <UserListCount />
+    <div className="UserSearchBox">
+      <div className="control">
+        <label htmlFor={id}>사용자 검색</label>
+        <input
+          id={id}
+          defaultValue={searchTerm}
+          // value={searchTerm}
+          // onChange={handleChange}
+          // readOnly
+          type="search"
+          placeholder="사용자 이름 입력"
+        />
+      </div>
+      <button type="button" onClick={handleSearch}>
+        찾기
+      </button>
     </div>
   );
 }
 
-export default UsersPage;
+export default UserSearchBox;
