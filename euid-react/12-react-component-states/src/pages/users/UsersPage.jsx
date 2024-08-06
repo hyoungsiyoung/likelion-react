@@ -17,6 +17,15 @@ import UsersList from './components/UsersList';
 function UsersPage() {
   // 리액트 컴포넌트 상태 관리
   const [users] = useState(usersData);
+  const [searchTerm, setSearchTerm] = useState(''); // 초기 상태 값을 비워두기
+
+  const handleSearch = (userInput) => {
+    console.log('clicked button');
+    setSearchTerm(userInput);
+    //Trim method에서 다 지워짐 (계속 공백이면?? 계속 공백으로 두고. 버튼을 누르면)
+  };
+
+  //그럼 alert 창에 검색어를 입력해주세요 장난치지말고 !!라고 나오기
 
   // 포함 가능한 로직
   // 상태 쓰기(C)/읽기(R)/수정(U)/삭제(D)
@@ -24,7 +33,7 @@ function UsersPage() {
 
   return (
     <div className="UsersPage">
-      <UserSearchBox />
+      <UserSearchBox searchTerm={searchTerm} onSearch={handleSearch} />
       <UsersList users={users} />
       <UserListCount />
     </div>
