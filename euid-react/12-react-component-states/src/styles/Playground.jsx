@@ -1,13 +1,19 @@
+// import { UsersPage } from '@/pages/users';
 import Counter from '@/components/Counter/Counter';
-import CounterClass from '@/components/Counter/Counter.class';
 
 function Playground() {
   return (
-    <>
-      <Counter count={3} min={2} max={6} />
-      <CounterClass min={9} count={10} step={10} />
-    </>
+    <div style={styles}>
+      <Counter min={0} count={3} max={5} />
+      {/* <UsersPage /> */}
+    </div>
   );
 }
+
+const styles = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 20,
+};
 
 export default Playground;
