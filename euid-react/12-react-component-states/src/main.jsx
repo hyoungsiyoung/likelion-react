@@ -1,15 +1,15 @@
-import '@/styles/main.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import AvatarListPage from '@/pages/AvatarListPage';
-import Playground from './styles/Playground';
+
+import '@/styles/main.css';
+import NoteApp from '@/NoteApp/App';
 
 const container = document.getElementById('react-app');
 
 if (container) {
   createRoot(container).render(
     <StrictMode>
-      <Playground />
+      <NoteApp />
     </StrictMode>
   );
 } else {
