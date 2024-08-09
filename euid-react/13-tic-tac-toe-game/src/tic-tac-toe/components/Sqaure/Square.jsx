@@ -10,21 +10,27 @@
 // - [x] Square 컴포넌트의 스타일을 CSS 모듈(modules) 방식으로 설정합니다. (with Vite)
 // --------------------------------------------------------------------------
 
-import { func, node } from 'prop-types';
+import { func, node, object } from 'prop-types';
 import S from './Square.module.css';
 
 Square.propTypes = {
   children: node,
   onPlay: func,
+  style: object,
 };
 
 // 상태를 가지지 않는(Stateless) 컴포넌트
-function Square({ children, onPlay }) {
+function Square({ children, onPlay, style }) {
   // [파생된 상태]
   const isDisabled = !!children;
 
   return (
-    <button className={S.component} onClick={onPlay} disabled={isDisabled}>
+    <button
+      className={S.component}
+      style={style}
+      onClick={onPlay}
+      disabled={isDisabled}
+    >
       {children}
     </button>
   );
