@@ -18,23 +18,31 @@ import S from './PracticeSVGPathAnimation.module.css';
 function PracticeSVGPathAnimation() {
   const svgRef = useRef(null);
 
-  const handleSVGPathAnimation = () => {
+  const handleSVGPathAnimation = async () => {
     const { current: el } = svgRef;
 
     const [circle1, circle2] = Array.from(el.querySelectorAll('circle'));
     const line = el.querySelector('line');
 
-    timeline(
+    const animationControls = timeline(
       [
-        [circle1, { strokeDashoffset: [1, 0], visibility: ['visible'] }],
-        [line, { strokeDashoffset: [1, 0], visibility: ['visible'] }],
-        [circle2, { strokeDashoffset: [1, 0], visibility: ['visible'] }],
+        [circle1, { strokeDashoffset: [1, 0], visibility: 'visible' }],
+        [line, { strokeDashoffset: [1, 0], visibility: 'visible' }],
+        [circle2, { strokeDashoffset: [1, 0], visibility: 'visible' }],
       ],
       {
-        duration: 1.6,
+        duration: 1,
         easing: 'cubic-bezier(0.79,0.14,0.15,0.86)',
       }
     );
+
+    await animationControls.finished;
+
+    // 모든 타임라인 애니메이션이 종료된 이후에 정리(cleanup)가 필요해~!
+    // circle1, line, circle2 요소에 visibility: hidden
+    Array.from(el.children).forEach((child) => {
+      child.style.visibility = 'hidden';
+    });
   };
 
   return (
