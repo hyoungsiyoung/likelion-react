@@ -34,20 +34,21 @@ function AnimateDemo() {
   const progressRef = useRef(null); // React Component { current: null } → DOM Mount → { current: HTMLOutputElement }
 
   const handleProgressAnimation = () => {
-    console.log(progressRef);
+    const { current: elelment } = progressRef;
 
     const progressAnimation = (progress) => {
-      console.log(progress);
+      // 진행률 애니메이션 로직 작성
+      const animationValue = Math.round(progress * 100) + '%';
+      elelment.value = animationValue;
     };
 
     const animationOptions = {
-      duration: 5,
+      duration: 2,
+      easing: 'ease-in-out',
     };
 
     animate(progressAnimation, animationOptions);
   };
-
-  console.log(progressRef);
 
   return (
     <div className={S.component}>
