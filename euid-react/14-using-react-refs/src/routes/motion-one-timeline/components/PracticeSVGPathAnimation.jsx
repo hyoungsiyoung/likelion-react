@@ -31,8 +31,8 @@ function PracticeSVGPathAnimation() {
         [circle2, { strokeDashoffset: [1, 0], visibility: 'visible' }],
       ],
       {
-        duration: 1,
-        easing: 'cubic-bezier(0.79,0.14,0.15,0.86)',
+        duration: 1.45,
+        easing: 'ease-in-out',
       }
     );
 
@@ -40,9 +40,9 @@ function PracticeSVGPathAnimation() {
 
     // 모든 타임라인 애니메이션이 종료된 이후에 정리(cleanup)가 필요해~!
     // circle1, line, circle2 요소에 visibility: hidden
-    Array.from(el.children).forEach((child) => {
-      child.style.visibility = 'hidden';
-    });
+    // Array.from(el.children).forEach((child) => {
+    //   child.style.visibility = 'hidden';
+    // });
   };
 
   return (
@@ -56,7 +56,7 @@ function PracticeSVGPathAnimation() {
       </button>
 
       <div className={S.component}>
-        <CircleLine ref={svgRef} />
+        <CircleLine forwardRef={svgRef} />
       </div>
     </>
   );
