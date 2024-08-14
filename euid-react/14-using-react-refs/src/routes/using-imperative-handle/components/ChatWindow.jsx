@@ -1,12 +1,12 @@
 // ---------------------------------------------------------------------------
 // ✅ 컴포넌트 내부에 명령형 핸들이 없을 경우 문제 해결
 // ---------------------------------------------------------------------------
-// - [ ] 컴포넌트 DOM 엘리먼트 참조를 외부에 노출: forwardRef()
-// - [ ] 컴포넌트 DOM 엘리먼트를 제어할 수 있는 명령형 핸들 외부에 노출: useImperativeHandle()
+// - [x] 컴포넌트 DOM 엘리먼트 참조를 외부에 노출: forwardRef() / React v19 ($$ref prop)
+// - [x] 컴포넌트 DOM 엘리먼트를 제어할 수 있는 명령형 핸들 외부에 노출: useImperativeHandle()
 // ---------------------------------------------------------------------------
 
-import { useId, useRef } from 'react';
-import { arrayOf, bool, exact, func, string } from 'prop-types';
+import { useId, useImperativeHandle, useRef } from 'react';
+import { any, arrayOf, bool, exact, func, string } from 'prop-types';
 import S from './ChatWindow.module.css';
 
 const MessageType = exact({
@@ -20,12 +20,29 @@ const MessageListType = arrayOf(MessageType);
 ChatWindow.propTypes = {
   messages: MessageListType.isRequired,
   onAddMessage: func,
+  $$ref: exact({
+    current: any,
+  }),
 };
 
-function ChatWindow({ messages, onAddMessage }) {
+function ChatWindow({ $$ref, messages, onAddMessage }) {
   const id = useId();
   const olRef = useRef(null);
   const textareaRef = useRef(null);
+
+  useImperativeHandle($$ref, () => {
+    // 명령형 핸들을 생성
+    // 내 안에 있는 너(ol)는 [상위 컴포넌트 누군가에게] 끌어내려진다.
+    const scrollDownList = () => {
+      const ol = olRef.current;
+      setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
+    };
+
+    // 생성한 명령형 핸들을 상위 컴포넌트에 노출(공개)
+    return {
+      scrollDownList,
+    };
+  });
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -75,23 +92,11 @@ function ChatWindow({ messages, onAddMessage }) {
     // scrollDownList(ol);
   };
 
-  // const scrollDownList = (el) => {
-  //   // 타이머 (우회적으로 리액트의 권장 방법이 아닌 방법으로 문제 해결)
-  //   if (el) {
-  //     setTimeout(() => el.scrollTo(0, el.scrollHeight));
-  //   }
-  // };
-
-  const mountedList = (el) => {
-    olRef.current = el;
-    // scrollDownList(el);
-  };
-
   return (
     <section className={S.component}>
       <h2 className="sr-only">채팅 화면</h2>
 
-      <ol ref={mountedList} className={S.chats}>
+      <ol ref={olRef} className={S.chats}>
         {messages.map(({ id, isMe, message }) => {
           const classNames = `${S.chat} ${isMe ? S.me : ''}`.trim();
 
