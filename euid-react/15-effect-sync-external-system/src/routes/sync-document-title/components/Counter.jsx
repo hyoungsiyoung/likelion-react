@@ -1,17 +1,17 @@
-// --------------------------------------------------------------------------
-// ✅ 문서 제목 동기화
-// --------------------------------------------------------------------------
-// - [ ] 카운터 앱의 count 상태가 변경되면 문서 제목을 동기화합니다.
-// - [ ] step 값이 변경될 때에는 불필요한 문서 제목 동기화가 되지 않도록 설정합니다.
-// --------------------------------------------------------------------------
-
-import { useId, useState } from 'react';
+import { useId, useState, useEffect } from 'react';
 import S from './Counter.module.css';
+
+const DOCUMENT_INITIAL_TITLE = '문서 제목 동기화';
 
 function Counter() {
   const id = useId();
-  const [count, setCount] = useState(0);
+
+  const [count, setCount] = useState(10);
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    document.title = `(${count}) ` + DOCUMENT_INITIAL_TITLE;
+  }, [count]);
 
   const handleDecrease = () => {
     let nextCount = count - step;
@@ -35,6 +35,7 @@ function Counter() {
         <button
           type="button"
           aria-label="카운트 감소"
+          title="카운트 감소"
           disabled={isDisabled}
           onClick={handleDecrease}
         >
@@ -55,7 +56,12 @@ function Counter() {
           </svg>
         </button>
         <output>{count}</output>
-        <button type="button" aria-label="카운트 증가" onClick={handleIncrease}>
+        <button
+          type="button"
+          aria-label="카운트 증가"
+          title="카운트 증가"
+          onClick={handleIncrease}
+        >
           <svg
             fill="none"
             strokeWidth={1.5}
