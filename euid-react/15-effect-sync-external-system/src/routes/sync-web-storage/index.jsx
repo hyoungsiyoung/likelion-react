@@ -1,12 +1,13 @@
 // --------------------------------------------------------------------------
 // ✅ 웹 스토리지 동기화
 // --------------------------------------------------------------------------
-// - [ ] 스위치가 ON일 경우, 다크 모드로 전환되도록 설정합니다.
-// - [ ] 웹 페이지를 새로고침 하더라도 상태가 유지되도록 설정합니다.
+// - [x] 스위치가 ON일 경우, 다크 모드로 전환되도록 설정합니다.
+// - [x] 웹 페이지를 새로고침 하더라도 상태가 유지되도록 설정합니다.
 // --------------------------------------------------------------------------
 
 import { useEffect, useState } from 'react';
 import Switcher from './components/Switcher';
+import S from './style.module.css';
 
 const DARK_MODE_KEY = '@theme/dark';
 
@@ -70,7 +71,7 @@ function SyncWebStorage() {
         </p>
         <p>이펙트를 사용해 스토리지 데이터를 리액트 앱과 동기화 해봅니다.</p>
 
-        <button type="button" onClick={handleSaveDarkMode}>
+        <button type="button" className={S.button} onClick={handleSaveDarkMode}>
           테마 저장
         </button>
       </div>
