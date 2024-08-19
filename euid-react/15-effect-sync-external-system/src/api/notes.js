@@ -109,5 +109,21 @@ export async function updateNote(editNote) {
   return responseData;
 }
 
-// DELETE
-export async function deleteNote() {}
+/** @type { (deleteId: string) => Promise<any> } */
+export async function deleteNote(deleteId) {
+  const REQUEST_URL = `${ENDPOINT}/api/collections/notes/records/${deleteId}`;
+
+  const response = await fetch(REQUEST_URL, {
+    method: 'DELETE',
+    ...REQUEST_OPTIONS,
+  });
+
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: '서버에서 요청에 응답하지 않습니다.' }),
+      { status: 500 }
+    );
+  }
+
+  return response;
+}
