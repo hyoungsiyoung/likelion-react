@@ -2,7 +2,7 @@
 // ✅ 클라이언트 측 Notes API
 // --------------------------------------------------------------------------
 // - [x] 생성(Create)
-// - [ ] 읽기(Read)
+// - [x] 읽기(Read)
 // - [ ] 수정(Update)
 // - [ ] 삭제(Delete)
 // --------------------------------------------------------------------------
@@ -15,9 +15,9 @@ const REQUEST_OPTIONS = {
   },
 };
 
-// 비동기 함수 작성
+// 비동기(async) 함수 작성
 
-/** @type {(newNote: { title: string, description: string })} */
+/** @type {(newNote: { title: string, description: string }) => Promise<any>} */
 export async function createNote(newNote) {
   // 외부 시스템(서버)에 데이터 생성 요청
   // POST 요청 URL
@@ -49,7 +49,22 @@ export async function createNote(newNote) {
   return responseData;
 }
 
-export async function readNotes() {}
+/** @type {(page?: number, perPage?: number) => Promise<any>} */
+export async function readNotes(page = 1, perPage = 10) {
+  const REQUEST_URL = `${ENDPOINT}/api/collections/notes/records?page=${page}&perPage=${perPage}`;
+  const response = await fetch(REQUEST_URL);
+
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: '서버에서 요청에 응답하지 않습니다.' }),
+      { status: 500 }
+    );
+  }
+
+  const responseData = await response.json();
+
+  return responseData;
+}
 
 export async function readNoteOne() {}
 
