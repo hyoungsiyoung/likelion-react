@@ -1,6 +1,8 @@
-.DS_Store
-.env
+__hooks__
 
 node_modules
+pocketbase
 build
 dist
+
+.DS_Store
