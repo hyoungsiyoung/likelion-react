@@ -19,7 +19,7 @@ function DataFetching() {
       draft.isLoading = true;
     });
 
-    const fetchOliveOil = async () => {
+    async function fetchOliveOil() {
       try {
         const response = await fetch(ENDPOINT, {
           signal: abortController.signal,
@@ -43,7 +43,7 @@ function DataFetching() {
           });
         }
       }
-    };
+    }
 
     fetchOliveOil();
 
