@@ -66,8 +66,48 @@ export async function readNotes(page = 1, perPage = 10) {
   return responseData;
 }
 
-export async function readNoteOne() {}
+/** @type {(noteId: string) => Promise<any>} */
+export async function readNoteOne(noteId) {
+  const REQUEST_URL = `${ENDPOINT}/api/collections/notes/records/${noteId}`;
+  const response = await fetch(REQUEST_URL);
 
-export async function updateNote() {}
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: '서버에서 요청에 응답하지 않습니다.' }),
+      { status: 500 }
+    );
+  }
 
+  const responseData = await response.json();
+
+  return responseData;
+}
+
+/** @type { (editNote: { id: string, title: string, description: string }) => Promise<any>} */
+export async function updateNote(editNote) {
+  const REQUEST_URL = `${ENDPOINT}/api/collections/notes/records/${editNote.id}`;
+  const body = JSON.stringify({
+    title: editNote.title,
+    description: editNote.description,
+  });
+
+  const response = await fetch(REQUEST_URL, {
+    method: 'PATCH',
+    body,
+    ...REQUEST_OPTIONS,
+  });
+
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: '서버에서 요청에 응답하지 않습니다.' }),
+      { status: 500 }
+    );
+  }
+
+  const responseData = await response.json();
+
+  return responseData;
+}
+
+// DELETE
 export async function deleteNote() {}
