@@ -1,45 +1,24 @@
-import { createBrowserRouter } from 'react-router-dom';
+import NavLink from '../NavLink';
+import S from './Navigation.module.css';
 
-import RootLayout from '@/pages/layout/RootLayout';
-import HomePage from '@/pages/Home';
+function Navigation() {
+  return (
+    <nav className={S.component}>
+      <ul>
+        <li>
+          <NavLink to="/">홈</NavLink>
+        </li>
+        <li>
+          <NavLink to="/notes" end>
+            노트 목록
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/notes/new">노트 생성</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
 
-import NotesLayout from '@/pages/layout/NotesLayout';
-import NoteListPage from '@/pages/NoteList';
-import NewNotePage from '@/pages/NewNote';
-import NoteDetailPage from '@/pages/NoteDetail';
-
-// React Router v6.4+ (data APIs ✅)
-const routes = [
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: 'notes',
-        element: <NotesLayout />,
-        children: [
-          {
-            index: true,
-            element: <NoteListPage />,
-          },
-          {
-            path: 'new',
-            element: <NewNotePage />,
-          },
-          {
-            path: 'detail',
-            element: <NoteDetailPage />,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const router = createBrowserRouter(routes);
-
-export default router;
+export default Navigation;
