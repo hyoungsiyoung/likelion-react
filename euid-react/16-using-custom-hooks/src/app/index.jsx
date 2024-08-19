@@ -1,4 +1,7 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter as createRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import HomePage from '@/pages/Home';
 import NoteListPage from '@/pages/NoteList';
 import NewNotePage from '@/pages/NewNote';
@@ -25,7 +28,7 @@ const routes = [
   },
 ];
 
-const router = createBrowserRouter(routes);
+const router = createRouter(routes);
 
 function App() {
   return (
