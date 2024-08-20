@@ -70,7 +70,10 @@
     font-size: 14px;
     font-weight: 600;
     color: var(--gray-600);
+  }
 
+  a {
+    margin-inline-end: 20px;
     &.active {
       color: var(--accent-color);
       text-decoration: underline;
