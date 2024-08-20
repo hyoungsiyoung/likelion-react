@@ -73,7 +73,7 @@ const routes = createRoutesFromElements(
     </Route>
     <Route path="scroll-trigger-effect" element={<ScrollTriggerEffect />} />
     <Route path="sync-backend" element={<SyncBackend />} />
-    <Route path="check-on-offline" element={<heckOnOffline />} />
+    <Route path="check-on-offline" element={<CheckOnOffline />} />
   </Route>
 );
 
