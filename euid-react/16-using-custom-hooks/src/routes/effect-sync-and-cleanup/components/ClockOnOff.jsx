@@ -1,12 +1,31 @@
-import { useState } from 'react';
-import ClockOnOff from './ClockOnOff';
+import { bool, func } from 'prop-types';
+import { useOutletContext } from 'react-router-dom';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+import useClock from '@/hooks/useClock';
+import S from './ClockOnOff.module.css';
 
-function ClockOnOffWrapper() {
-  const [isClockOn, setIsClockOn] = useState(false);
+ClockOnOff.propTypes = {
+  isOn: bool,
+  onToggle: func,
+};
+
+function ClockOnOff() {
+  useDocumentTitle('시계 ON/OFF ← 이펙트 동기화 & 정리');
+
+  const { isOn, onToggle } = useOutletContext();
+
+  const time = useClock();
+
+  const buttonLabel = isOn ? 'OFF' : 'ON';
 
   return (
-    <ClockOnOff isOn={isClockOn} onToggle={() => setIsClockOn((s) => !s)} />
+    <div className={S.component}>
+      <button type="button" lang="en" onClick={onToggle}>
+        CLOCK {buttonLabel}
+      </button>
+      <output hidden={!isOn}>{time.toLocaleTimeString()}</output>
+    </div>
   );
 }
 
-export default ClockOnOffWrapper;
+export default ClockOnOff;
