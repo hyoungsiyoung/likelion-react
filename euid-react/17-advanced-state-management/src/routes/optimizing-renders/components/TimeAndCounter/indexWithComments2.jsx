@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import S from './style.module.css';
 import useClock from '@/hooks/useClock';
 import TimeToggler from './TimeToggler';
@@ -13,8 +12,13 @@ import Counter from '../Counter';
 function TimeAndCounter() {
   const { time, turnOn, onOff } = useClock();
 
-  const handleToggleTime = useCallback(() => onOff((c) => !c), [onOff]);
+  // 변경 됨 (기억할 필요가 있다.)
+  // 함수 타입을 기억하고 싶다.
+  // 기억된 함수 값은 더 이상 변경되지 않는다.
+  const handleToggleTime = () => onOff((c) => !c);
+  // const handleToggleTime = useCallback(() => onOff((c) => !c), [onOff]);
 
+  // 불변
   const label = `타임 ${turnOn ? '스톱' : '플레이'}`;
 
   return (
