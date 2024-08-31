@@ -1,7 +1,7 @@
 @layer base {
-
   html {
-    min-block-size: 100.04vh;
+    /* overflow-y: visible; */
+    min-block-size: 100.1vh;
   }
 
   [hidden] {
@@ -33,5 +33,4 @@
   button {
     @apply disabled:cursor-not-allowed;
   }
-
 }
